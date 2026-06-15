@@ -1,0 +1,21 @@
+# Binaries
+bot-army-cli
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Go
+bin/
+obj/
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+*.log
