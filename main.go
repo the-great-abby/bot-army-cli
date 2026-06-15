@@ -43,6 +43,7 @@ func briefingToday() {
 		return
 	}
 
+	// Extract briefing from nested data structure
 	if data, ok := response["data"].(map[string]interface{}); ok {
 		if briefing, ok := data["briefing"].(string); ok {
 			fmt.Println(briefing)
@@ -50,7 +51,9 @@ func briefingToday() {
 		}
 	}
 
-	fmt.Printf("Briefing response: %v\n", response)
+	// Fallback: pretty-print the whole response
+	b, _ := json.MarshalIndent(response, "", "  ")
+	fmt.Println(string(b))
 }
 
 func contextCurrent() {
@@ -68,15 +71,16 @@ func contextCurrent() {
 		return
 	}
 
+	// Extract context from nested data structure
 	if data, ok := response["data"].(map[string]interface{}); ok {
-		if context, ok := data["context"].(map[string]interface{}); ok {
-			b, _ := json.MarshalIndent(context, "", "  ")
-			fmt.Println(string(b))
-			return
-		}
+		b, _ := json.MarshalIndent(data, "", "  ")
+		fmt.Println(string(b))
+		return
 	}
 
-	fmt.Printf("Context response: %v\n", response)
+	// Fallback: pretty-print the whole response
+	b, _ := json.MarshalIndent(response, "", "  ")
+	fmt.Println(string(b))
 }
 
 func chat(query string) {
@@ -97,14 +101,17 @@ func chat(query string) {
 		return
 	}
 
+	// Extract response from nested data structure
 	if data, ok := response["data"].(map[string]interface{}); ok {
-		if answer, ok := data["answer"].(string); ok {
+		if answer, ok := data["response"].(string); ok {
 			fmt.Println(answer)
 			return
 		}
 	}
 
-	fmt.Printf("Chat response: %v\n", response)
+	// Fallback: pretty-print the whole response
+	b, _ := json.MarshalIndent(response, "", "  ")
+	fmt.Println(string(b))
 }
 
 func main() {
